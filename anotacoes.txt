@@ -1,0 +1,41 @@
+npx sequelize-cli help
+
+Arquivo: config/database.js
+---------------------------
+
+module.exports = {
+    dialect: 'mssql',
+    host: 'localhost',
+    username: 'sa',
+    password: 'sqlserver',
+    database: 'sqlnode',
+    define: {
+        timestamps: true,  // Cria autom campos created_at e updated_at
+      //  underscored: true,
+    },
+};
+------------------
+
+npx sequelize-cli db:create => cria o db
+  Se der o erro:
+   Error: Cannot find module 'C:\Tito\Aprendizado\nodesql\config\config.json'
+   Arquivo padrão do sequelize para ler as credenciais de acesso.
+   Neste caso criar arquivo na raiz .sequelizerc  (ver exemplo no cód) e rodar novamente
+
+   Arquivo .sequelizerc:
+   ---------------------
+   const path = require('path');
+
+module.exports = {
+  config: path.resolve(__dirname, 'src', 'config', 'database.js'),  // cada vírgula é uma pasta então este caminho equivale a 
+																	// raiz/src/config/database.js
+
+  'migrations-path': path.resolve(__dirname, 'src', 'database', 'migrations'),
+};
+-----------------
+   Criar pasta database/migrations
+
+   npx sequelize-cli migration:create --name create-users
+   É criada um arquivo dentro da pasta migrations ( Ver método up para criar a tabela)
+
+   npx sequelize-cli db:migrate
